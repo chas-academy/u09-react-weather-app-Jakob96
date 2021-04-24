@@ -10,10 +10,16 @@ function App() {
   const [coordinates, setCoordinates] = useState([]);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err) });
-    }
+    navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
   }, []);
+
+  useEffect(() => {
+    if (location) {
+      WeatherAPI.getCoordinates(location).then(response => {
+        setCoordinates([response[0].lat, response[0].lon]);
+      });
+    }
+  }, [location, setLocation]);
 
   useEffect(() => {
     if (coordinates.length) {
@@ -25,12 +31,13 @@ function App() {
         setTemp(response.current.temp);
         setWeatherDesc(response.current.weather[0].description);
       });
-  }
+    }
   }, [coordinates, setCoordinates, units, setUnits])
 
   return (
     <main>
-      
+      <h1>{ location }</h1>
+      <h2>{ weatherDesc }</h2>
     </main>
   );
 }
