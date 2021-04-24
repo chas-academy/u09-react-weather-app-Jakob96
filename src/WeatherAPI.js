@@ -8,6 +8,14 @@ export default class WeatherAPI {
     })
  }
 
+ static async getLocation(lat, lon) {
+    return await fetch(`${process.env.REACT_APP_API_URL}/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${process.env.REACT_APP_API_ID}`)
+    .then(response => response.json())
+    .catch(error => {
+        console.error(error);
+    })
+ }
+
  static async getWeatherData(lat, lon, units) {
     const query = `lat=${lat}&lon=${lon}`
 
