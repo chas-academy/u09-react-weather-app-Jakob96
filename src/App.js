@@ -1,6 +1,7 @@
 import './App.scss';
 import WeatherAPI from './WeatherAPI';
 import { useEffect, useState } from 'react';
+import WeatherConditions from './components/weatherConditions/index';
 
 function App() {
   const [units, setUnits] = useState('metric');
@@ -36,8 +37,7 @@ function App() {
 
   return (
     <main>
-      <h1>{ location }</h1>
-      <h2>{ weatherDesc }</h2>
+      <WeatherConditions location={location} temp={temp} weatherDesc={weatherDesc}></WeatherConditions>
     </main>
   );
 }
