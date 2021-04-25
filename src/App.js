@@ -2,14 +2,20 @@ import './App.scss';
 import WeatherAPI from './WeatherAPI';
 import { useEffect, useState } from 'react';
 import WeatherConditions from './components/weatherConditions/index';
+import WeatherDetails from './components/weatherDetails/index';
 
 function App() {
   const [units, setUnits] = useState('metric');
   const [location, setLocation] = useState('');
-  const [temp, setTemp] = useState();
+  const [temp, setTemp] = useState(0);
   const [weatherId, setWeatherId] = useState(0);
   const [weatherDesc, setWeatherDesc] = useState('');
   const [coordinates, setCoordinates] = useState([]);
+  const [feelsLike, setFeelsLike] = useState(0);
+  const [humidity, setHumidity] = useState(0);
+  const [wind, setWind] = useState(0);
+  const [sunrise, setSunrise] = useState(0);
+  const [sunset, setSunset] = useState(0);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
@@ -33,6 +39,11 @@ function App() {
         setTemp(response.current.temp);
         setWeatherId(response.current.weather[0].id);
         setWeatherDesc(response.current.weather[0].description);
+        setFeelsLike(response.current.feels_like);
+        setHumidity(response.current.humidity);
+        setWind(response.current.wind_speed);
+        setSunrise(response.current.sunrise);
+        setSunset(response.current.sunset);
       });
     }
   }, [coordinates, setCoordinates, units, setUnits])
@@ -40,6 +51,7 @@ function App() {
   return (
     <main>
       <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc}></WeatherConditions>
+      <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset}></WeatherDetails>
     </main>
   );
 }

@@ -1,0 +1,13 @@
+.card-details {
+    background:  rgba(255,255,255,0.8);
+    margin-top: 20px;
+    padding: 10px; 
+}
+
+ul.details li {
+  padding: 15px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+}
