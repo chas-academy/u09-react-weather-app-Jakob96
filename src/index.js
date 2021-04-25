@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Grommet } from 'grommet';
+import './css/weather-icons-wind.min.css';
+import './css/weather-icons.min.css';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

@@ -7,6 +7,7 @@ function App() {
   const [units, setUnits] = useState('metric');
   const [location, setLocation] = useState('');
   const [temp, setTemp] = useState();
+  const [weatherId, setWeatherId] = useState(0);
   const [weatherDesc, setWeatherDesc] = useState('');
   const [coordinates, setCoordinates] = useState([]);
 
@@ -30,6 +31,7 @@ function App() {
 
       WeatherAPI.getWeatherData(coordinates[0], coordinates[1], units).then(response => {
         setTemp(response.current.temp);
+        setWeatherId(response.current.weather[0].id);
         setWeatherDesc(response.current.weather[0].description);
       });
     }
@@ -37,7 +39,7 @@ function App() {
 
   return (
     <main>
-      <WeatherConditions location={location} temp={temp} weatherDesc={weatherDesc}></WeatherConditions>
+      <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc}></WeatherConditions>
     </main>
   );
 }
