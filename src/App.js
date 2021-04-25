@@ -3,6 +3,7 @@ import WeatherAPI from './WeatherAPI';
 import { useEffect, useState } from 'react';
 import WeatherConditions from './components/weatherConditions/index';
 import WeatherDetails from './components/weatherDetails/index';
+import WeatherForecast from './components/weatherForecast/index';
 
 function App() {
   const [units, setUnits] = useState('metric');
@@ -16,6 +17,7 @@ function App() {
   const [wind, setWind] = useState(0);
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
+  const [weatherHourly, setWeatherHourly] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
@@ -44,14 +46,25 @@ function App() {
         setWind(response.current.wind_speed);
         setSunrise(response.current.sunrise);
         setSunset(response.current.sunset);
+
+        const weatherHourlyData = []; 
+
+        for (let i = 0; i <= 5; i += 1) {
+          weatherHourlyData.push(response.hourly[i]);
+        }
+        
+        setWeatherHourly(weatherHourlyData);
       });
     }
   }, [coordinates, setCoordinates, units, setUnits])
 
   return (
     <main>
-      <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc}></WeatherConditions>
-      <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset}></WeatherDetails>
+      <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
+      <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} />
+      <section className="weatherForecast">
+        <WeatherForecast hourly={weatherHourly} />
+      </section>
     </main>
   );
 }
