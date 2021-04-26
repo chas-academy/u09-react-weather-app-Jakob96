@@ -46,14 +46,7 @@ function App() {
         setWind(response.current.wind_speed);
         setSunrise(response.current.sunrise);
         setSunset(response.current.sunset);
-
-        const weatherHourlyData = []; 
-
-        for (let i = 0; i <= 5; i += 1) {
-          weatherHourlyData.push(response.hourly[i]);
-        }
-        
-        setWeatherHourly(weatherHourlyData);
+        setWeatherHourly(response.hourly);
       });
     }
   }, [coordinates, setCoordinates, units, setUnits])
@@ -62,9 +55,7 @@ function App() {
     <main>
       <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
       <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} />
-      <section className="weatherForecast">
-        <WeatherForecast hourly={weatherHourly} />
-      </section>
+      <WeatherForecast hourly={weatherHourly} />
     </main>
   );
 }
