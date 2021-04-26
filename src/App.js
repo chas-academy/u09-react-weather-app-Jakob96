@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import WeatherConditions from './components/weatherConditions/index';
 import WeatherDetails from './components/weatherDetails/index';
 import WeatherForecast from './components/weatherForecast/index';
+import { Button } from 'grommet';
 
 function App() {
   const [units, setUnits] = useState('metric');
@@ -54,11 +55,18 @@ function App() {
   }, [coordinates, setCoordinates, units, setUnits])
 
   return (
-    <main>
-      <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
-      <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} />
-      <WeatherForecast hourly={weatherHourly} daily={weatherDaily} />
-    </main>
+    <>
+      <form method="#" action="#">
+          <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
+          <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
+      </form>
+
+      <main>
+        <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
+        <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} units={units} />
+        <WeatherForecast hourly={weatherHourly} daily={weatherDaily} units={units} />
+      </main>
+    </>
   );
 }
 

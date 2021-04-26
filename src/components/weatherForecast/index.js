@@ -14,7 +14,7 @@ function WeatherForecast(props) {
             <h2>{ Math.round(element.temp) + '°' }</h2>
             <i className={'wi wi-owm-' + element.weather[0].id}></i>
             <p>{ element.weather[0].description.charAt(0).toUpperCase() + element.weather[0].description.slice(1) }</p>
-            <small>{ Math.round(element.feels_like) + '° | ' + Math.round(element.humidity) + '% | ' + Math.round(element.wind_speed) + ' km/h' }</small>
+            <small>{ Math.round(element.feels_like) + '° | ' + Math.round(element.humidity) + '% | ' + Math.round(element.wind_speed) + (props.units === 'metric' ? ' km/h' : ' mph') }</small>
         </Card>
         ) 
       }
