@@ -18,6 +18,7 @@ function App() {
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
   const [weatherHourly, setWeatherHourly] = useState([]);
+  const [weatherDaily, setWeatherDaily] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
@@ -47,6 +48,7 @@ function App() {
         setSunrise(response.current.sunrise);
         setSunset(response.current.sunset);
         setWeatherHourly(response.hourly);
+        setWeatherDaily(response.daily);
       });
     }
   }, [coordinates, setCoordinates, units, setUnits])
@@ -55,7 +57,7 @@ function App() {
     <main>
       <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
       <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} />
-      <WeatherForecast hourly={weatherHourly} />
+      <WeatherForecast hourly={weatherHourly} daily={weatherDaily} />
     </main>
   );
 }
