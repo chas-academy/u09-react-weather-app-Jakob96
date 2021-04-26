@@ -56,7 +56,8 @@ function App() {
 
   return (
     <>
-      <form method="#" action="#">
+      <form method="#" action="#" className="options">
+          <input type="text" placeholder="Search for a location" className="search" />
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
       </form>
