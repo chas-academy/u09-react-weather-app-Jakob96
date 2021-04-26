@@ -20,10 +20,21 @@ function App() {
   const [sunset, setSunset] = useState(0);
   const [weatherHourly, setWeatherHourly] = useState([]);
   const [weatherDaily, setWeatherDaily] = useState([]);
+  const [locationSearch, setLocationSearch] = useState('');
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
   }, []);
+
+  useEffect(() => {
+    if (locationSearch) {
+      WeatherAPI.getCoordinates(locationSearch).then(response => {
+        if (response.length) {
+          setCoordinates([response[0].lat, response[0].lon]);
+        }
+      })
+    }
+  }, [locationSearch, setLocationSearch])
 
   useEffect(() => {
     if (location) {
@@ -36,7 +47,7 @@ function App() {
   useEffect(() => {
     if (coordinates.length) {
       WeatherAPI.getLocation(coordinates[0], coordinates[1]).then(response => {
-        setLocation(response[0].local_names.feature_name);
+        setLocation(response[0].name);
       });
 
       WeatherAPI.getWeatherData(coordinates[0], coordinates[1], units).then(response => {
@@ -57,7 +68,7 @@ function App() {
   return (
     <>
       <form method="#" action="#" className="options">
-          <input type="text" placeholder="Search for a location" className="search" />
+          <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
       </form>
