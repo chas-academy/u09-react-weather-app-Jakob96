@@ -1,0 +1,11 @@
+.weatherForecast {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    overflow-x: scroll;
+
+    .card-details {
+        margin: 10px;
+        flex-shrink: 0;
+    }
+}
