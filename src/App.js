@@ -7,7 +7,7 @@ import WeatherForecast from './components/weatherForecast/index';
 import { Button } from 'grommet';
 
 function App() {
-  const [units, setUnits] = useState('metric');
+  const [units, setUnits] = useState(localStorage.getItem('units') || 'metric');
   const [location, setLocation] = useState('');
   const [temp, setTemp] = useState(0);
   const [weatherId, setWeatherId] = useState(0);
@@ -62,6 +62,8 @@ function App() {
         setWeatherHourly(response.hourly);
         setWeatherDaily(response.daily);
       });
+
+      localStorage.setItem('units', units);
     }
   }, [coordinates, setCoordinates, units, setUnits])
 
