@@ -21,6 +21,7 @@ function App() {
   const [weatherHourly, setWeatherHourly] = useState([]);
   const [weatherDaily, setWeatherDaily] = useState([]);
   const [locationSearch, setLocationSearch] = useState('');
+  const [locationSaved, setLocationSaved] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
@@ -64,8 +65,26 @@ function App() {
       });
 
       localStorage.setItem('units', units);
+      checkLocationSaved();
     }
-  }, [coordinates, setCoordinates, units, setUnits])
+  }, [coordinates, setCoordinates, units, setUnits, locationSaved, setLocationSaved]);
+
+  function saveLocation(location) {
+      let confirm = window.confirm("Do you want to save this location?");
+
+      if (confirm) {
+        let locations = JSON.parse(localStorage.getItem('locations')) || [];
+        locations.push(location);
+        localStorage.setItem('locations', JSON.stringify(locations));
+        setLocationSaved(true);
+      }
+  };
+
+  function checkLocationSaved() {
+    if (JSON.parse(localStorage.getItem('locations'))) {
+      JSON.parse(localStorage.getItem('locations')).find(element => element[0] === coordinates[0] && element[1] === coordinates[1]) ? setLocationSaved(true) : setLocationSaved(false);
+    }
+  }
 
   return (
     <>
@@ -73,6 +92,7 @@ function App() {
           <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
+          { (!locationSaved) ? <Button secondary onClick={(e) => saveLocation(coordinates)} label="Save" /> : '' }
       </form>
 
       <main>
