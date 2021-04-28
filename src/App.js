@@ -5,6 +5,7 @@ import WeatherConditions from './components/weatherConditions/index';
 import WeatherDetails from './components/weatherDetails/index';
 import WeatherForecast from './components/weatherForecast/index';
 import SavedLocations from './components/savedLocations/index';
+import WeatherData from './components/weatherData/index';
 import { Location } from 'grommet-icons';
 import { Button } from 'grommet';
 
@@ -113,6 +114,7 @@ function App() {
         <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} units={units} />
         <WeatherForecast hourly={weatherHourly} daily={weatherDaily} units={units} />
         <SavedLocations onChange={handleChangeLocation} />
+        <WeatherData data={weatherDaily} />
       </main>
     </>
   );
