@@ -69,12 +69,13 @@ function App() {
     }
   }, [coordinates, setCoordinates, units, setUnits, locationSaved, setLocationSaved]);
 
-  function saveLocation(location) {
+  function saveLocation(coordinates, location) {
       let confirm = window.confirm("Do you want to save this location?");
 
       if (confirm) {
         let locations = JSON.parse(localStorage.getItem('locations')) || [];
-        locations.push(location);
+        coordinates.push(location);
+        locations.push(coordinates);
         localStorage.setItem('locations', JSON.stringify(locations));
         setLocationSaved(true);
       }
@@ -92,7 +93,7 @@ function App() {
           <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
-          { (!locationSaved) ? <Button secondary onClick={(e) => saveLocation(coordinates)} label="Save" /> : '' }
+          { (!locationSaved) ? <Button secondary onClick={(e) => saveLocation(coordinates, location)} label="Save" /> : '' }
       </form>
 
       <main>
