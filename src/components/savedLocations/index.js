@@ -11,7 +11,7 @@ function SavedLocations(props) {
                   JSON.parse(localStorage.getItem('locations')).map((element, index) => {
                    return <li key={index}><a href="#" onClick={() => props.onChange(element[2])}>{ element[2] }</a></li>
                 }) 
-                : '')           
+                : 'You have no saved locations yet.')           
               }
           </ul>
       </Card>
