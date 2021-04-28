@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import WeatherConditions from './components/weatherConditions/index';
 import WeatherDetails from './components/weatherDetails/index';
 import WeatherForecast from './components/weatherForecast/index';
+import SavedLocations from './components/savedLocations/index';
 import { Button } from 'grommet';
 
 function App() {
@@ -87,19 +88,24 @@ function App() {
     }
   }
 
+  function handleChangeLocation(location) {
+    setLocation(location);
+  }
+
   return (
     <>
       <form method="#" action="#" className="options">
           <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
-          { (!locationSaved) ? <Button secondary onClick={(e) => saveLocation(coordinates, location)} label="Save" /> : '' }
+          { (!locationSaved) ? <Button secondary onClick={() => saveLocation(coordinates, location)} label="Save" /> : '' }
       </form>
 
       <main>
         <WeatherConditions id={weatherId} location={location} temp={temp} weatherDesc={weatherDesc} />
         <WeatherDetails feelsLike={feelsLike} humidity={humidity} wind={wind} sunrise={sunrise} sunset={sunset} units={units} />
         <WeatherForecast hourly={weatherHourly} daily={weatherDaily} units={units} />
+        <SavedLocations onChange={handleChangeLocation} />
       </main>
     </>
   );
