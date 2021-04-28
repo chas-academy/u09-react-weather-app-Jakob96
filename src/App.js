@@ -25,7 +25,7 @@ function App() {
   const [locationSaved, setLocationSaved] = useState(false);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
+    requestLocation();
   }, []);
 
   useEffect(() => {
@@ -70,6 +70,10 @@ function App() {
     }
   }, [coordinates, setCoordinates, units, setUnits, locationSaved, setLocationSaved]);
 
+  function requestLocation() {
+    navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
+  };
+
   function saveLocation(coordinates, location) {
       let confirm = window.confirm("Do you want to save this location?");
 
@@ -96,6 +100,7 @@ function App() {
     <>
       <form method="#" action="#" className="options">
           <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
+          { (navigator.geolocation) ?  <Button primary label="Current location" onClick={() => requestLocation()} /> : ''}
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
           { (!locationSaved) ? <Button secondary onClick={() => saveLocation(coordinates, location)} label="Save" /> : '' }
