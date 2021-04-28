@@ -12,5 +12,12 @@
 
     button {
         margin: 2px;
+        font-weight: 500;
+    }
+
+    .btn-location {
+        position: relative;
+        top: 3px;
+        padding: 4px;   
     }
 }

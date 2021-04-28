@@ -5,6 +5,7 @@ import WeatherConditions from './components/weatherConditions/index';
 import WeatherDetails from './components/weatherDetails/index';
 import WeatherForecast from './components/weatherForecast/index';
 import SavedLocations from './components/savedLocations/index';
+import { Location } from 'grommet-icons';
 import { Button } from 'grommet';
 
 function App() {
@@ -101,7 +102,7 @@ function App() {
     <>
       <form method="#" action="#" className="options">
           <input type="text" placeholder="Search for a location" className="search" onChange={(e) => setTimeout(() => (e.target.value.length > 1) ? setLocationSearch(e.target.value) : '', 2000)} />
-          { (navigator.geolocation) ?  <Button primary label="Current location" onClick={() => requestLocation()} /> : ''}
+          { (navigator.geolocation) ?  <Button primary className="btn-location" onClick={() => requestLocation()}><Location color="white" /></Button> : ''}
           <Button primary={ units === 'metric'} label="C" value="metric" onClick={(e) => setUnits(e.target.value)} /> 
           <Button primary={ units === 'imperial'} label="F"  value="imperial" onClick={(e) => setUnits(e.target.value)} />
           { (!locationSaved) ? <Button secondary onClick={() => saveLocation(coordinates, location)} label="Save" /> : '' }
