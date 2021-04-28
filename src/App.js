@@ -9,7 +9,7 @@ import { Button } from 'grommet';
 
 function App() {
   const [units, setUnits] = useState(localStorage.getItem('units') || 'metric');
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(localStorage.getItem('location') || '');
   const [temp, setTemp] = useState(0);
   const [weatherId, setWeatherId] = useState(0);
   const [weatherDesc, setWeatherDesc] = useState('');
@@ -25,7 +25,7 @@ function App() {
   const [locationSaved, setLocationSaved] = useState(false);
 
   useEffect(() => {
-    requestLocation();
+    if (!location) {requestLocation(); }
   }, []);
 
   useEffect(() => {
@@ -65,6 +65,7 @@ function App() {
         setWeatherDaily(response.daily);
       });
 
+      localStorage.setItem('location', location)
       localStorage.setItem('units', units);
       checkLocationSaved();
     }
