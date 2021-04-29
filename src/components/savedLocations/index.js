@@ -5,13 +5,13 @@ function SavedLocations(props) {
   return (
       <Card className="card-details" width="large">
           <h3>Saved locations</h3>
-          <ul className="details">
+          <ul className="horizontal-list">
               {
                   (JSON.parse(localStorage.getItem('locations')) ? 
                   JSON.parse(localStorage.getItem('locations')).map((element, index) => {
-                   return <li key={index}><Button secondary onClick={() => props.onChange(element[2])} label={element[2]} /></li>
+                   return <li key={index}><Button secondary onClick={() => { props.onChange(element[2]); window.scrollTo({top: 0, behavior: 'smooth'}); }} label={element[2]} /></li>
                 }) 
-                : 'You have no saved locations yet.')           
+                : <p className="center">You have no saved locations yet.</p>)           
               }
           </ul>
       </Card>

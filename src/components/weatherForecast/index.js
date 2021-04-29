@@ -26,7 +26,7 @@ function WeatherForecast(props) {
         <ul className="details">
             {
               props.daily.slice(0, 7).map((element, index) =>
-                <li key={ element.dt }>{ weekdays[index] } { Math.round(element.temp.day) + '°' } | <i className={ 'wi wi-owm-' + element.weather[0].id }></i></li>
+                <li key={ element.dt }>{ weekdays[index] } <span className="right">{ Math.round(element.temp.day) + '°' } | <i className={ 'wi small wi-owm-' + element.weather[0].id }></i></span></li>
               )
             }
         </ul>
