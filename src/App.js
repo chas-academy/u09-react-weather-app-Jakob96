@@ -116,6 +116,9 @@ function App() {
         <SavedLocations onChange={handleChangeLocation} />
         <WeatherData data={weatherDaily} />
       </main>
+      <footer>
+        <small>&copy; {new Date().getFullYear() + ' Jakob Jyberg | Weather data from '}<a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></small>
+      </footer>
     </>
   );
 }

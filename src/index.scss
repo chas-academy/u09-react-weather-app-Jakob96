@@ -19,6 +19,16 @@ main {
   flex-flow: column;
 }
 
+footer {
+  color: #fff;
+  margin: 5px;
+  text-align: center;
+
+  a, &:hover, &:active , &:visited {
+    color: #fff;
+  }
+}
+
 ul {
   list-style-type: none;
   margin: 0;
