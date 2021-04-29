@@ -16,24 +16,24 @@ function WeatherData(props) {
       <Card className="card-details" width="large">
         <h3>Highest temperatures</h3>
         <DataChart
-            data={highestTemps}
-            series={['date', 'degrees']}
-            chart={[
-                { property: 'degrees', type: 'line', opacity: 'medium', thickness: 'xsmall' },
-                { property: 'degrees', type: 'point', point: 'circle', thickness: 'small' }
-            ]}
+          data={highestTemps}
+          series={['date', 'degrees']}
+          chart={[
+              { property: 'degrees', type: 'line', opacity: 'medium', thickness: 'xsmall', color: 'brand' },
+              { property: 'degrees', type: 'point', point: 'circle', thickness: 'small', color: 'brand' }
+          ]}
         />
       </Card>
 
     <Card className="card-details" width="large">
         <h3>Lowest temperatures</h3>
         <DataChart
-            data={lowestTemps}
-            series={['date', 'degrees']}
-            chart={[
-                { property: 'degrees', type: 'line', opacity: 'medium', thickness: 'xsmall' },
-                { property: 'degrees', type: 'point', point: 'circle', thickness: 'small' }
-        ]}
+          data={lowestTemps}
+          series={['date', 'degrees']}
+          chart={[
+              { property: 'degrees', type: 'line', opacity: 'medium', thickness: 'xsmall', color: 'brand' },
+              { property: 'degrees', type: 'point', point: 'circle', thickness: 'small', color: 'brand' }
+          ]}
         />
     </Card>
     </>
