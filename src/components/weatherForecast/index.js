@@ -2,8 +2,8 @@ import { Card } from 'grommet';
 import './index.scss';
 
 function WeatherForecast(props) {
-  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+ 
   return (
     (props.daily.length) ?
     <>
@@ -25,8 +25,8 @@ function WeatherForecast(props) {
         <h3>Week overview</h3>
         <ul className="details">
             {
-              props.daily.slice(0, 7).map((element, index) =>
-                <li key={ element.dt }>{ weekdays[index] } <span className="right">{ Math.round(element.temp.day) + '°' } | <i className={ 'wi small wi-owm-' + element.weather[0].id }></i></span></li>
+              props.daily.slice(1, 6).map(element =>
+                <li key={ element.dt }>{ weekdays[new Date(element.dt * 1000).getDay()]} <span className="right">{ Math.round(element.temp.day) + '°' } | <i className={ 'wi small wi-owm-' + element.weather[0].id }></i></span></li>
               )
             }
         </ul>
