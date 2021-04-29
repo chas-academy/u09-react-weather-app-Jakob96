@@ -4,7 +4,8 @@ import './index.scss';
 function SavedLocations(props) {
   return (
       <Card className="card-details" width="large">
-          <h3>Saved locations</h3>
+          <h3>Saved locations {(JSON.parse(localStorage.getItem('locations')) ? <Button primary className="right" label="Remove items" onClick={() => { localStorage.removeItem('locations'); window.location.reload(); }} /> : '')}</h3>
+
           <ul className="horizontal-list">
               {
                   (JSON.parse(localStorage.getItem('locations')) ? 
