@@ -5,7 +5,7 @@ function WeatherData(props) {
     const highestTemps = [];
     const lowestTemps = [];
 
-    props.data.slice(0, 8).map(element => {
+    props.data.slice(0, 8).forEach(element => {
         highestTemps.push({ date: new Date(element.dt * 1000).toLocaleDateString(), degrees: element.temp.max});
         lowestTemps.push({ date: new Date(element.dt * 1000).toLocaleDateString(), degrees: element.temp.min});
     });

@@ -11,7 +11,7 @@ function WeatherForecast(props) {
         { 
           props.hourly.slice(0, 25).map((element, index) =>
           <Card className="card-details" align="center" width="small" key={ element.dt }>
-              <h3>{ (index == 0) ? 'Now' : new Date(element.dt * 1000).toLocaleTimeString().substr(0, 5) }</h3>
+              <h3>{ (index === 0) ? 'Now' : new Date(element.dt * 1000).toLocaleTimeString().substr(0, 5) }</h3>
               <h2>{ Math.round(element.temp) + '°' }</h2>
               <i className={'wi wi-owm-' + element.weather[0].id}></i>
               <p>{ element.weather[0].description.charAt(0).toUpperCase() + element.weather[0].description.slice(1) }</p>

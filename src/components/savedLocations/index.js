@@ -1,4 +1,4 @@
-import { Card } from 'grommet';
+import { Card, Button } from 'grommet';
 import './index.scss';
 
 function SavedLocations(props) {
@@ -9,7 +9,7 @@ function SavedLocations(props) {
               {
                   (JSON.parse(localStorage.getItem('locations')) ? 
                   JSON.parse(localStorage.getItem('locations')).map((element, index) => {
-                   return <li key={index}><a href="#" onClick={() => props.onChange(element[2])}>{ element[2] }</a></li>
+                   return <li key={index}><Button secondary onClick={() => props.onChange(element[2])} label={element[2]} /></li>
                 }) 
                 : 'You have no saved locations yet.')           
               }

@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     if (!location) {requestLocation(); }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (locationSearch) {
@@ -52,6 +52,7 @@ function App() {
     if (coordinates.length) {
       WeatherAPI.getLocation(coordinates[0], coordinates[1]).then(response => {
         setLocation(response[0].name);
+        localStorage.setItem('location', response[0].name);
       });
 
       WeatherAPI.getWeatherData(coordinates[0], coordinates[1], units).then(response => {
@@ -67,9 +68,14 @@ function App() {
         setWeatherDaily(response.daily);
       });
 
-      localStorage.setItem('location', location)
       localStorage.setItem('units', units);
       checkLocationSaved();
+
+      function checkLocationSaved() {
+        if (JSON.parse(localStorage.getItem('locations'))) {
+          JSON.parse(localStorage.getItem('locations')).find(element => element[0] === coordinates[0] && element[1] === coordinates[1]) ? setLocationSaved(true) : setLocationSaved(false);
+        }
+      }
     }
   }, [coordinates, setCoordinates, units, setUnits, locationSaved, setLocationSaved]);
 
@@ -88,12 +94,6 @@ function App() {
         setLocationSaved(true);
       }
   };
-
-  function checkLocationSaved() {
-    if (JSON.parse(localStorage.getItem('locations'))) {
-      JSON.parse(localStorage.getItem('locations')).find(element => element[0] === coordinates[0] && element[1] === coordinates[1]) ? setLocationSaved(true) : setLocationSaved(false);
-    }
-  }
 
   function handleChangeLocation(location) {
     setLocation(location);
