@@ -11,7 +11,7 @@ function WeatherData(props) {
     });
 
   return (
-    (props.data) ?
+    (props.data.length) ?
     <>
       <Card className="card-details" width="large">
         <h3>Highest temperatures</h3>

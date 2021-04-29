@@ -1,3 +1,4 @@
+//A class for handling requests to OpenWeatherMap API
 export default class WeatherAPI {
     
  static async getCoordinates(location) {

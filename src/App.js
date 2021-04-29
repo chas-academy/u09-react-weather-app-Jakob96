@@ -80,7 +80,7 @@ function App() {
   }, [coordinates, setCoordinates, units, setUnits, locationSaved, setLocationSaved]);
 
   function requestLocation() {
-    navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')});
+    navigator.geolocation.getCurrentPosition((pos) => { setCoordinates([pos.coords.latitude, pos.coords.longitude]); }, (err) => { console.error(err); setLocation('London')}); //If an error occurs, set London as default location
   };
 
   function saveLocation(coordinates, location) {
@@ -95,6 +95,7 @@ function App() {
       }
   };
 
+  //Callback method called from SavedLocations component in onChange prop when user clicks a button with a new location
   function handleChangeLocation(location) {
     setLocation(location);
   }
@@ -117,7 +118,7 @@ function App() {
         <WeatherData data={weatherDaily} />
       </main>
       <footer>
-        <small>&copy; {new Date().getFullYear() + ' Jakob Jyberg | Weather data from '}<a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></small>
+        <small>&copy; {new Date().getFullYear() + ' Jakob Jyberg | Weather data from '}<a href="https://openweathermap.org" target="_blank" rel="noreferrer">OpenWeatherMap</a></small>
       </footer>
     </>
   );
